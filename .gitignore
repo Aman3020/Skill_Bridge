@@ -1,0 +1,26 @@
+# Node dependencies
+backend/node_modules/
+frontend/node_modules/
+
+# Environment variables
+backend/.env
+frontend/.env
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+
+# Build / production files
+frontend/build/
+frontend/dist/
+backend/build/
+backend/dist/
+
+# npm/yarn lock files (optional, if you want fresh installs each time)
+# package-lock.json
+# yarn.lock
+
+# IDE configs (optional)
+.vscode/
