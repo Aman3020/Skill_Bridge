@@ -41,14 +41,18 @@ export const postJob = async ( req , res) =>{
 export const getAllJobs = async (req, res) =>{
     try{
         const keyword = req.query.keyword || "";
-
+        // $or
+        // It tells MongoDB:
+        // 👉 “If any one of these two conditions is true, consider it a match.”
         const query = {
             $or:[
                 {title:{$regex:keyword, $options:"i"}},
                 {description:{$regex:keyword, $options:"i"}},
             ]
         };
-        const jobs = await job.find(query);
+        const jobs = await Job.find(query).populate({
+            path:"company"
+        }).sort({createdAt:-1});
 
         if(!jobs){
             return res.status(404).json({
@@ -65,6 +69,7 @@ export const getAllJobs = async (req, res) =>{
         console.log(error);
     }
 }
+
 // student
 export const getJobById  = async (req, res) =>{
     try{
