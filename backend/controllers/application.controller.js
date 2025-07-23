@@ -6,7 +6,7 @@ export const applyJob = async (req, res)=>{
         const userId = req.id;
         const jobId = req.params.id;
 
-        if(!jobsId){
+        if(!jobId){
             return res.status(400).json({
                 message:"Job ID is required",
                 success:false
@@ -42,7 +42,7 @@ export const applyJob = async (req, res)=>{
         await job.save();
         
         return res.status(201).json({
-            message:"Job Applied successgully",
+            message:"Job Applied successfully",
             success:true
         })
     }catch(error){
@@ -95,7 +95,8 @@ export const getApplicants = async (req, res) =>{
             })
         };
         return res.status(200).json({
-            message:"Job not found",
+            message:"Job found",
+            job,
             success:true
         })
 
