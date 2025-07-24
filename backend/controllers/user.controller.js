@@ -38,6 +38,7 @@ export const  register = async (req, res) =>{
 
 export const login = async (req, res) =>{
     try{
+        console.log("Hiii");
         const {email, password, role} = req.body;
         if(!email || !password || !role){
             return res.status(400).json({
@@ -85,12 +86,14 @@ export const login = async (req, res) =>{
             profile:user.profile
         }
 
-        return res.status(200).cookie("token", token, {maxAge:1*24*60*60*1000, httpsOnly:true, sameSite:'strict'}).json({
+        return res.status(200).cookie("token", token, {maxAge:1*24*60*60*1000, httpOnly:true, sameSite:'strict'}).json({
             message:`Welcome back ${user.fullname}`,
-            user:user
+            user:user,
+            success:true
         })
 
     }catch(error){
+        console.log("Hiii");
         console.log(error)
     }
 }
