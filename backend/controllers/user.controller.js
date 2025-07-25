@@ -93,7 +93,6 @@ export const login = async (req, res) =>{
         })
 
     }catch(error){
-        console.log("Hiii");
         console.log(error)
     }
 }
