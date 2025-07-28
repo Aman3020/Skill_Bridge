@@ -6,6 +6,7 @@ import { Contact, Mail, Pen } from 'lucide-react'
 import { Badge } from './ui/badge'
 import { Label } from './ui/label'
 import AppliedJobTable from './AppliedJobTable'
+import UpdateProfileDialog from './UpdateProfileDialog'
 
 const skills = ["html", "javascript", "C++"]
 
