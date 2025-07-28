@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from './shared/Navbar'
 import { Avatar, AvatarImage } from './ui/avatar'
 import { Button} from './ui/button'
@@ -10,6 +10,7 @@ import AppliedJobTable from './AppliedJobTable'
 const skills = ["html", "javascript", "C++"]
 
 const Profile = () => {
+    const [open, setOpen] = useState(false);
     const isResume = true;
     return <div>
        <Navbar/>
@@ -26,7 +27,7 @@ const Profile = () => {
 
                 </div>
             </div>
-            <Button className="text-right" variant="outline"><Pen/></Button>
+            <Button onClick={() =>setOpen(true)} className="text-right" variant="outline"><Pen/></Button>
         </div>
 
         <div className="my-5">
@@ -63,6 +64,7 @@ const Profile = () => {
                 <AppliedJobTable/>
             }
         </div>
+        <UpdateProfileDialog open = {open} setOpen = {setOpen}/>
     </div>
   
 }
