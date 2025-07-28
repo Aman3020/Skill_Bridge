@@ -9,7 +9,7 @@ const LatestJobs = () => {
       <h1 className="text-4xl font-bold">
         <span className="text-[#6A38C2]">Latest & Top</span> Job Openings
       </h1>
-      // multiple job carts display HeroSection
+      {/* // multiple job carts display HeroSection */}
       <div className="grid grid-cols-3 gap-4 my-5">
         {
             randomJobs.slice(0,6).map((item, index) => 
