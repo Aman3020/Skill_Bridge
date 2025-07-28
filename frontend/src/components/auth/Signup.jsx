@@ -12,6 +12,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import store from "../../redux/store";
 import { setloading } from "../../redux/authSlice";
+import { Loader } from "lucide-react";
 
 const Signup = () => {
   const [input, setInput] = useState({
@@ -24,7 +25,7 @@ const Signup = () => {
   });
 
   const navigate = useNavigate();
-  const {loading} = useSelector(store=>store.auth);
+  const { loading } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -60,8 +61,16 @@ const Signup = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message); 
-    }finally{
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    } finally {
       dispatch(setloading(false));
     }
   };
@@ -149,12 +158,16 @@ const Signup = () => {
               />
             </div>
           </div>
-          {
-            loading ? <Button className="w-full my-4"><Loader className="mr-2 h-4 w-4 animate-spin"/>Please wait</Button> :
+          {loading ? (
+            <Button className="w-full my-4">
+              <Loader className="mr-2 h-4 w-4 animate-spin" />
+              Please wait
+            </Button>
+          ) : (
             <Button type="submit" className="w-full my-4">
-            SignUp
-          </Button>
-          }
+              SignUp
+            </Button>
+          )}
           <span className="text-sm">
             Already have an account ?{" "}
             <Link to="/login" className="text-blue-600">
