@@ -1,6 +1,13 @@
 import {User} from "../models/user.model.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import getDataUri from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js";
+
+import dotenv from "dotenv";
+dotenv.config();
+// Configure cloudinary if not already configured
+
 export const  register = async (req, res) =>{
     try{
         const {fullname, email, phoneNumber, password, role} = req.body;
@@ -38,7 +45,7 @@ export const  register = async (req, res) =>{
 
 export const login = async (req, res) =>{
     try{
-        console.log("Hiii");
+        // console.log("Hiii");
         const {email, password, role} = req.body;
         if(!email || !password || !role){
             return res.status(400).json({
@@ -110,11 +117,15 @@ export const logout = async (req, res) => {
 
 export const updateProfile = async (req, res) =>{
     try{    
+        // console.log("hi from backend");
         const {fullname, email, phoneNumber, bio, skills} = req.body;
         const file = req.file;
-
+        
+        const fileUri = getDataUri(file);
         //cloudinary async here
 
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+        
         let skillsArray;
         if(skills){
             skillsArray= skills.split(",");
@@ -136,7 +147,10 @@ export const updateProfile = async (req, res) =>{
         if(skillsArray) user.profile.skills = skillsArray;
 
         //resume comes later here
-
+        if(cloudResponse){
+            user.profile.resume = cloudResponse.secure_url;
+            user.profile.resumeOriginalName = file.originalname
+        }
 
         await user.save();
         user = {
